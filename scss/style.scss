@@ -42,6 +42,13 @@ select::-ms-expand {
   min-width: 850px;
   padding: 50px 35px;
   box-sizing: border-box;
+  display: grid;
+  grid-template-columns: 3fr 1fr; 
+  grid-template-rows: max-content 1fr; 
+  gap: 0px 0px;
+  grid-template-areas:
+    "result result"
+    "form content";
 }
 
 // searchResults
@@ -49,6 +56,7 @@ select::-ms-expand {
   color: $zoffBlue;
   text-align: center;
   margin: 0 auto 25px;
+  grid-area:result;
   p {
     margin-bottom: 5px;
   }
@@ -57,7 +65,10 @@ select::-ms-expand {
   @include fontSize(20);
   font-weight: bold;
 }
-
+form[method="get"][name="from"]{
+  grid-area:form;
+  margin-right:25px;
+}
 // refinement
 .refinement {
   width: 480px;
@@ -267,22 +278,31 @@ select::-ms-expand {
 
 // contentsList
 .contentsList {
-  border-top: 1px solid $lightGray;
+  grid-area:content;
+  padding-left:30px;
+  position:relative;
+  &::before{
+    position:absolute;
+    content:"";
+    display: block;
+    width:1px;
+    height:100%;
+    background:$lightGray;
+    left:0;
+    top:0;
+  }
   h2 {
     color: $zoffBlue;
     font-weight: normal;
     text-align: center;
-    margin: 50px 0;
+    margin: 0 0 30px;
   }
   ul {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
+    flex-direction: column;
   }
   li {
-    flex-basis: 48%;
-    max-width: 48%;
-    margin: 0 0 60px;
+    margin: 0 0 30px;
     a {
       color: #000;
       display: flex;
